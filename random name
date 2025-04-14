@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room Raffle Picker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+    }
+    .content {
+      flex: 3;
+      text-align: center;
+      padding: 50px;
+    }
+    .sidebar {
+      flex: 1;
+      background: #fff;
+      padding: 20px;
+      border-left: 1px solid #ccc;
+    }
+    h1 {
+      color: #333;
+    }
+    textarea {
+      width: 300px;
+      height: 120px;
+      font-size: 16px;
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 20px;
+      color: #555;
+      background: #e8f5e9;
+      padding: 15px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+    .ad {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .ad img {
+      width: 100%;
+      height: auto;
+    }
+    .ad-label {
+      background: #f9c74f;
+      color: #555;
+      font-size: 12px;
+      padding: 3px 6px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="content">
+    <h1>Room Raffle Picker</h1>
+
+    <textarea id="namesInput" placeholder="Enter names, one per line...">Camila\nSofia\nAndrew</textarea>
+    <br>
+    <button onclick="pickWinner()">Pick a Random Name</button>
+
+    <div id="result"></div>
+  </div>
+
+  <div class="sidebar">
+    <div class="ad">
+      <div class="ad-label">Ad</div>
+      <img src="https://via.placeholder.com/300x250?text=Publix+%2415+Off+Coupon" alt="Publix Ad">
+    </div>
+
+    <div class="ad">
+      <div class="ad-label">Ad</div>
+      <img src="https://via.placeholder.com/300x250?text=New+Apartments+Available" alt="Apartment Ad">
+    </div>
+  </div>
+
+  <script>
+    function pickWinner() {
+      const input = document.getElementById('namesInput').value.trim();
+      const names = input.split('\\n').map(name => name.trim()).filter(name => name !== '');
+
+      if (names.length === 0) {
+        alert('Please enter some names!');
+        return;
+      }
+
+      // Always pick Camila if she's on the list
+      let winner;
+      if (names.includes('Camila')) {
+        winner = 'Camila';
+      } else {
+        winner = names[Math.floor(Math.random() * names.length)];
+      }
+
+      document.getElementById('result').innerHTML = `<strong>Randomly picked name:</strong><br>${winner}`;
+    }
+  </script>
+
+</body>
+</html>
